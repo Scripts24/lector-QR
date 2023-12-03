@@ -8,7 +8,7 @@
 }
 
 body {
-    min-height: 100vh;
+    overflow-x: hidden;
     background: linear-gradient(30deg,
             hsl(240deg 7% 6%) 0%,
             hsl(231deg 5% 15%) 20%,
@@ -21,4 +21,25 @@ body {
             hsl(313deg 4% 24%) 71%,
             hsl(341deg 4% 14%) 80%,
             hsl(0deg 4% 5%) 100%);
+}
+
+.text-center {
+    color: antiquewhite;
+}
+
+.custom-bg-color {
+    background             : rgba(255, 255, 255, 0.2);
+    box-shadow             : 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter        : blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius          : 10px;
+    border                 : 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.btn:focus {
+    outline           : none !important;
+    outline-width     : 0 !important;
+    box-shadow        : none !important;
+    -moz-box-shadow   : none;
+    -webkit-box-shadow: none;
 }
