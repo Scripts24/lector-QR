@@ -8,8 +8,9 @@
 }
 
 body {
-    overflow-x: hidden;
-    background: linear-gradient(30deg,
+    height    : 100vh;
+    overflow: hidden;
+    background-image: linear-gradient(30deg,
             hsl(240deg 7% 6%) 0%,
             hsl(231deg 5% 15%) 20%,
             hsl(225deg 6% 24%) 29%,
@@ -42,4 +43,29 @@ body {
     box-shadow        : none !important;
     -moz-box-shadow   : none;
     -webkit-box-shadow: none;
+}
+
+.custom-swal-container {
+    width: 100%; 
+}
+
+.custom-swal-popup {
+    max-width: 100%; 
+}
+
+.swal2-popup {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+}
+
+/* Restaurar el desplazamiento vertical después de cerrar la alerta si es necesario 
+.swal2-container.swal2-shown {
+    overflow: auto !important;
+}*/
+
+@media (max-width: 600px) {
+    .swal2-popup {
+        width: 90% !important;  /* o cualquier otro valor que funcione para tu diseño */
+        max-width: none !important;
+    }
 }
