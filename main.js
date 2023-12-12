@@ -58,7 +58,6 @@ const activarSonido = () => {
     audio.play();
 }
 
-//Callback cuando termina de leer el código QR
 // Callback cuando termina de leer el código QR
 qrcode.callback = (res) => {
     if (res) {
@@ -66,51 +65,58 @@ qrcode.callback = (res) => {
         // Puedes realizar las acciones deseadas con el texto
         console.log("Texto del código QR:", res);
 
-        // Por ejemplo, puedes mostrar el texto en una alerta
-        alert("Texto del código QR: " + res);
+        // Verificar si el contenido parece ser una URL
+        const isURL = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(res);
 
-        // Configuración de estilos personalizados
-        const customStyles = {
-            fontFamily: 'Roboto Condensed, sans-serif',
-            fontSize: '14px',
-            color: '#ffffff',
-            background: 'black',
-            showCloseButton: true,
-        };
+        if (isURL) {
+            // Configuración de estilos personalizados para URL
+            const customStyles = {
+                fontFamily: 'Roboto Condensed, sans-serif',
+                fontSize: '14px',
+                color: '#ffffff',
+                background: 'black',
+                showCloseButton: true,
+            };
 
-        // Crear un elemento de enlace clickeable
-        const linkElement = document.createElement('a');
-        linkElement.href = res;  // Asignar la URL dinámica
-        linkElement.target = '_blank';  // Abrir enlace en nueva pestaña
+            // Crear un elemento de enlace clickeable
+            const linkElement = document.createElement('a');
+            linkElement.href = res;  // Asignar la URL dinámica
+            linkElement.target = '_blank';  // Abrir enlace en nueva pestaña
 
-        // Configurar la alerta de SweetAlert sin ejecutarla
-        const swalConfig = {
-            text: 'Haz clic en el botón para redirigirte',
-            showConfirmButton: true,
-            confirmButtonText: 'Ir',
-            footer: res,  // Agrega el enlace al pie de la alerta
-            color: '#ffffff',
-            customClass: {
-                container: 'custom-swal-container',
-                popup: 'custom-swal-popup',
-                content: 'custom-swal-content',
-                confirmButton: 'custom-swal-confirm-button',
-            },
-            heightAuto: false,
-            ...customStyles,
-            preConfirm: () => {
-                // Redirige al usuario al hacer clic en el botón "Ir"
-                window.location.href = res;
-            }
-        };
+            // Configurar la alerta de SweetAlert solo para URLs
+            const swalConfig = {
+                text: 'Haz clic en el botón para redirigirte',
+                showConfirmButton: true,
+                confirmButtonText: 'Ir',
+                footer: res,  // Agrega el enlace al pie de la alerta
+                color: '#ffffff',
+                customClass: {
+                    container: 'custom-swal-container',
+                    popup: 'custom-swal-popup',
+                    content: 'custom-swal-content',
+                    confirmButton: 'custom-swal-confirm-button',
+                },
+                heightAuto: false,
+                ...customStyles,
+                preConfirm: () => {
+                    // Redirige al usuario al hacer clic en el botón "Ir"
+                    window.location.href = res;
+                }
+            };
 
-        // Mostrar la alerta después de cerrar la alerta original
-        Swal.fire(swalConfig).then(() => {
-            activarSonido();
-            cerrarCamara();
-        });
+            // Mostrar la alerta solo para URLs
+            Swal.fire(swalConfig).then(() => {
+                activarSonido();
+                cerrarCamara();
+            });
+        } else {
+            // Si no es una URL, muestra el texto en lugar del SweetAlert
+            alert("Texto del código QR: " + res);
+            // Puedes agregar lógica adicional aquí según tus necesidades
+        }
     }
 };
+
 
 
 /*evento para mostrar la camara sin el boton 
