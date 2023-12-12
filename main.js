@@ -61,6 +61,16 @@ const activarSonido = () => {
 //Callback cuando termina de leer el código QR
 qrcode.callback = (res) => {
     if (res) {
+
+// Aquí, 'res' contiene el texto decodificado del código QR
+
+        // Puedes realizar las acciones deseadas con el texto
+        console.log("Texto del código QR:", res);
+
+        // Por ejemplo, puedes mostrar el texto en una alerta
+        alert("Texto del código QR: " + res);
+
+
         // Configuración de estilos personalizados
         const customStyles = {
             fontFamily: 'Roboto Condensed, sans-serif',
