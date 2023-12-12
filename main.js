@@ -59,17 +59,15 @@ const activarSonido = () => {
 }
 
 //Callback cuando termina de leer el código QR
+// Callback cuando termina de leer el código QR
 qrcode.callback = (res) => {
     if (res) {
-
-// Aquí, 'res' contiene el texto decodificado del código QR
-
+        // Aquí, 'res' contiene el texto decodificado del código QR
         // Puedes realizar las acciones deseadas con el texto
         console.log("Texto del código QR:", res);
 
         // Por ejemplo, puedes mostrar el texto en una alerta
         alert("Texto del código QR: " + res);
-
 
         // Configuración de estilos personalizados
         const customStyles = {
@@ -85,8 +83,8 @@ qrcode.callback = (res) => {
         linkElement.href = res;  // Asignar la URL dinámica
         linkElement.target = '_blank';  // Abrir enlace en nueva pestaña
 
-        // Aplicar estilos personalizados a la alerta de SweetAlert
-        Swal.fire({
+        // Configurar la alerta de SweetAlert sin ejecutarla
+        const swalConfig = {
             text: 'Haz clic en el botón para redirigirte',
             showConfirmButton: true,
             confirmButtonText: 'Ir',
@@ -104,14 +102,13 @@ qrcode.callback = (res) => {
                 // Redirige al usuario al hacer clic en el botón "Ir"
                 window.location.href = res;
             }
-        });
+        };
 
-        // Muestra la alerta
-        Swal.fire(swalConfig)
-            .then(() => {
-                activarSonido();
-                cerrarCamara();
-            });
+        // Mostrar la alerta después de cerrar la alerta original
+        Swal.fire(swalConfig).then(() => {
+            activarSonido();
+            cerrarCamara();
+        });
     }
 };
 
