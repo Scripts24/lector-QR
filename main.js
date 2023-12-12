@@ -78,11 +78,6 @@ qrcode.callback = (res) => {
                 showCloseButton: true,
             };
 
-            // Crear un elemento de enlace clickeable
-            const linkElement = document.createElement('a');
-            linkElement.href = res;  // Asignar la URL dinámica
-            linkElement.target = '_blank';  // Abrir enlace en nueva pestaña
-
             // Configurar la alerta de SweetAlert solo para URLs
             const swalConfig = {
                 text: 'Haz clic en el botón para redirigirte',
@@ -110,9 +105,24 @@ qrcode.callback = (res) => {
                 cerrarCamara();
             });
         } else {
-            // Si no es una URL, muestra el texto en lugar del SweetAlert
-            alert("Texto del código QR: " + res);
-            // Puedes agregar lógica adicional aquí según tus necesidades
+            // Si no es una URL, muestra un SweetAlert con el texto
+            const textConfig = {
+                text: 'Texto del código QR: ' + res,
+                showConfirmButton: true,
+                confirmButtonText: 'Aceptar',
+                customClass: {
+                    container: 'custom-swal-container',
+                    popup: 'custom-swal-popup',
+                    content: 'custom-swal-content',
+                    confirmButton: 'custom-swal-confirm-button',
+                },
+            };
+
+            Swal.fire(textConfig).then(() => {
+                activarSonido();
+                cerrarCamara();
+            });
+
         }
     }
 };
